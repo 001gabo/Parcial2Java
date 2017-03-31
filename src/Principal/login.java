@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 
 public class login extends javax.swing.JFrame {
     
+    public static int iddocente;
     
     public login() {
         initComponents();
@@ -97,10 +98,9 @@ public class login extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-        String usuario,pass; 
+        String usuario,pass,query,nombre; 
         usuario = txtUsuario.getText();
-        pass=new String(txtPass.getPassword());
-        
+        pass=new String(txtPass.getPassword()); 
         if(usuario.equals("")||pass.equals("")){
             JOptionPane.showMessageDialog(this, "Existen campos vaciones");
         }else{
@@ -109,11 +109,10 @@ public class login extends javax.swing.JFrame {
             PreparedStatement ps = null; 
             ResultSet rs = null; 
             Statement st;  
-
-            try{  
-                
+            
+            try{    
                 con=conexionBD.getConnection();
-                ps = con.prepareStatement("SELECT `user`, `pass`, `Id_Rol` FROM `usuario` WHERE `user`=? AND `pass`=MD5(?) AND id_rol=1");
+                ps = con.prepareStatement("SELECT`user`, `pass` FROM `docente` WHERE   `user`=? AND `pass`=MD5(?)");
                 ps.setString(1,usuario);
                 ps.setString(2,pass);
                 rs= ps.executeQuery();
@@ -129,6 +128,18 @@ public class login extends javax.swing.JFrame {
             }catch(SQLException ex){ 
                 JOptionPane.showMessageDialog(this,"Ocurrio un error: "+ex); 
             } 
+            
+            //obteniendo id_docente 
+            query="SELECT * FROM `docente` WHERE `user` ='"+usuario+"';" ; 
+            try{
+            con=conexionBD.getConnection();
+            st=con.createStatement();
+            rs=st.executeQuery(query); 
+            rs.next();
+            iddocente=rs.getInt("id_docente"); 
+            }catch(SQLException ex){ 
+                JOptionPane.showMessageDialog(this,"Ocurrio un error: "+ex); 
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
