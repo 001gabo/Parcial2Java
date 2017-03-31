@@ -4,13 +4,13 @@ package Actividades;
 import Principal.Principal;
 import Principal.login;
 import com.sun.glass.events.KeyEvent;
-import conexionBD.conexionBD;
-import java.sql.Connection;
-import java.sql.DriverManager;
+import conexionBD.conexionBD; 
+import java.sql.Connection; 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.Statement; 
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 
 public class Actividades extends javax.swing.JFrame {
@@ -24,9 +24,14 @@ public class Actividades extends javax.swing.JFrame {
     Statement st = null;
     String query;
     
+    //variables miscelaneas 
+    int arreglo_materias,conteoM=0,conteoP=0;
+    HashMap<Integer, Integer> HashMaterias= new HashMap<>();
+    HashMap<Integer, Integer> HashPeriodos= new HashMap<>();
+    
     public Actividades() {
         initComponents();
-        
+        darIdDocente();
         agregar_items();
     }
  
@@ -45,6 +50,8 @@ public class Actividades extends javax.swing.JFrame {
         btnAceptar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         lblidocente = new javax.swing.JLabel();
+        JLabel6 = new javax.swing.JLabel();
+        cbMateria = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,6 +92,12 @@ public class Actividades extends javax.swing.JFrame {
         jLabel5.setText("Docente");
 
         lblidocente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblidocente.setText("ID DOCENTE");
+
+        JLabel6.setText("Materia");
+
+        cbMateria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        cbMateria.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,23 +113,28 @@ public class Actividades extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(62, 62, 62)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtPorcentajeActividad, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cbPeriodos, javax.swing.GroupLayout.Alignment.LEADING, 0, 112, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(txtNombreActividad, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                                    .addComponent(txtNombreActividad, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblidocente)
-                                    .addComponent(jLabel5)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(186, 186, 186)
-                        .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(74, 74, 74))
+                                    .addComponent(jLabel5)
+                                    .addComponent(lblidocente, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(txtPorcentajeActividad, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(30, 30, 30)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cbPeriodos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(btnAceptar, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(JLabel6)
+                                    .addComponent(cbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,37 +148,36 @@ public class Actividades extends javax.swing.JFrame {
                         .addGap(41, 41, 41)
                         .addComponent(jLabel2)
                         .addGap(5, 5, 5)
-                        .addComponent(txtNombreActividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPorcentajeActividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbPeriodos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                        .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtNombreActividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtPorcentajeActividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(JLabel6))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cbPeriodos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
+                        .addGap(21, 21, 21)
                         .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblidocente)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblidocente, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
         );
 
-        setSize(new java.awt.Dimension(507, 365));
+        setSize(new java.awt.Dimension(507, 329));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void agregar_items(){
-        cbPeriodos.removeAllItems();
-        cbPeriodos.removeAllItems();
-        cbPeriodos.removeAllItems();
-        cbPeriodos.removeAllItems();
-        lblidocente.setText(String.valueOf(iddocente));
-        //conexion a la bd
+    private void llenar_cbPeriodos(){
         try{
             con=conexionBD.getConnection();
             st=con.createStatement();
@@ -168,12 +185,79 @@ public class Actividades extends javax.swing.JFrame {
             rs=st.executeQuery(query);
             while(rs.next()){ 
                 this.cbPeriodos.addItem(rs.getString(2)); 
+                HashMaterias.put(conteoP, rs.getInt(1));
+                conteoP++;
             }
             con.close();
         }
         catch(SQLException ex){
             JOptionPane.showMessageDialog(this,"Ocurrio un error: "+ex);
         }
+    }
+    
+    private void llenar_cbMaterias(){
+        
+        int id_detalle_usuario_materia,c=0,x=0;
+        int[] materias;
+         
+        try{
+            con=conexionBD.getConnection();
+            st=con.createStatement();
+            query="select count(id_materia) as 'Conteo' from detalle_usuario_materia where id_docente="+iddocente+";";
+            rs=st.executeQuery(query);
+            if(rs.next()){
+                c=rs.getInt("Conteo");
+            }
+            materias = new int[c];
+            
+            query="select * from detalle_usuario_materia where id_docente="+iddocente+";";
+            rs=st.executeQuery(query);  
+            while(rs.next()){  
+                materias[x]=rs.getInt(3);
+                x++;
+            }  
+            for(int j=0;j<materias.length;j++){
+                query="select * from materia where id_materia="+materias[j]+";";
+                rs=st.executeQuery(query); 
+                while(rs.next()){ 
+                    this.cbMateria.addItem(rs.getString(2)); 
+                    HashMaterias.put(conteoM, rs.getInt(1));
+                    conteoM++;
+                }
+            } 
+            con.close();
+        }
+        catch(SQLException ex){
+            JOptionPane.showMessageDialog(this,"Ocurrio un error: "+ex);
+        }
+    }
+    
+    private void darIdDocente(){
+            query="SELECT * FROM `docente` WHERE `id_docente` ='"+iddocente+"';" ; 
+            try{
+            con=conexionBD.getConnection();
+            st=con.createStatement();
+            rs=st.executeQuery(query); 
+            rs.next();
+            lblidocente.setText(rs.getString("user")); 
+            }catch(SQLException ex){ 
+                JOptionPane.showMessageDialog(this,"Ocurrio un error: "+ex); 
+            }
+        }
+    
+    private void agregar_items(){
+        cbPeriodos.removeAllItems();
+        cbPeriodos.removeAllItems();
+        cbPeriodos.removeAllItems();
+        cbPeriodos.removeAllItems();
+        
+        cbMateria.removeAllItems();
+        cbMateria.removeAllItems();
+        cbMateria.removeAllItems();
+        cbMateria.removeAllItems(); 
+        llenar_cbPeriodos();
+        llenar_cbMaterias(); 
+        
     }
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         this.dispose();
@@ -191,54 +275,50 @@ public class Actividades extends javax.swing.JFrame {
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         String nombre_actividad,prueba;
-        int item_seleccionado;
-        double porcentaje,total_periodo=0;
+        int item_seleccionado_periodo,item_seleccionado_materia;
+        double porcentaje,total_porcentaje=0;
         
         nombre_actividad = txtNombreActividad.getText();
-        item_seleccionado = cbPeriodos.getSelectedIndex();
         
         if(txtPorcentajeActividad.getText().equals("")){
-        porcentaje=0;
+            porcentaje=0;
         }else{
-        prueba=txtPorcentajeActividad.getText();
-        porcentaje=Double.parseDouble(prueba);
+            prueba=txtPorcentajeActividad.getText();
+            porcentaje=Double.parseDouble(prueba);
         }
         
         if(nombre_actividad.equals("")){
             JOptionPane.showMessageDialog(this, "No posee nombre la actividad");
         }else{
-          //Verificando que no exceda el 100% del periodo
-          try{
-            con=conexionBD.getConnection();
-            st=con.createStatement();
-            query="select * from actividad";
-            rs=st.executeQuery(query);
-            while(rs.next()){ 
-                 total_periodo=total_periodo+(rs.getDouble("porcentaje"));
-                 if(total_periodo<=100){
-                     //si no excede el 100% del periodo se ingresa
-                        try{   
-
-                            query ="INSERT INTO `actividad`( `nombre`, `porcentaje`, `id_periodo`,`id_docente`) VALUES ('"+nombre_actividad+"','"+porcentaje+"','"+(item_seleccionado+1)+"','"+iddocente+"')";
-                            con=conexionBD.getConnection();
-                            st=con.createStatement();
-                            st.executeUpdate(query);
-                            JOptionPane.showMessageDialog(this,"Se ha creado la actividad de manera exitosa. El porcentaje restante es"+(100-total_periodo)+"% ");
-                            con.close();
-                        }catch(SQLException ex){ 
-                            JOptionPane.showMessageDialog(this,"Ocurrio un error: "+ex); 
-            }
-                 }else{
-                     JOptionPane.showMessageDialog(this, "Se ha excedido el 100% del periodo");
-                 }
-            }
-            con.close();
-        }
-        catch(SQLException ex){
-            JOptionPane.showMessageDialog(this,"Ocurrio un error: "+ex);
-        }
-          
+            item_seleccionado_materia=HashMaterias.get(cbMateria.getSelectedIndex());
+            item_seleccionado_periodo=HashMaterias.get(cbPeriodos.getSelectedIndex());
             
+            //Menos que el 100%
+            try{   
+                query ="select sum(porcentaje) as 'porcentaje_total' from actividad where id_periodo="+item_seleccionado_periodo+" AND id_docente="+iddocente+" AND id_materia= "+item_seleccionado_materia+" ;";
+                con=conexionBD.getConnection();
+                st=con.createStatement();
+                rs=st.executeQuery(query);
+                if(rs.next()){
+                    total_porcentaje=rs.getInt("porcentaje_total");
+                }
+                if(porcentaje<100 && total_porcentaje<100){ //si es menor que 100 hace el insert
+                    try{   
+                    query ="INSERT INTO `actividad`( `nombre`, `porcentaje`, `id_periodo`,`id_docente`,`id_materia`) VALUES ('"+nombre_actividad+"','"+porcentaje+"','"+item_seleccionado_periodo+"','"+iddocente+"','"+item_seleccionado_materia+"')";
+                    con=conexionBD.getConnection();
+                    st=con.createStatement();
+                    st.executeUpdate(query);
+                    JOptionPane.showMessageDialog(this,"Se ha creado la actividad de manera exitosa. El porcentaje restante es"+(100-total_porcentaje)+"% ");
+                    con.close();
+                    }catch(SQLException ex){ 
+                        JOptionPane.showMessageDialog(this,"Ocurrio un error: "+ex); 
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(this,"Se ha EXCEDIDO el 100% de la nota"); 
+                }  
+            }catch(SQLException ex){ 
+                JOptionPane.showMessageDialog(this,"Ocurrio un error: "+ex);  
+            }
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
 
@@ -278,8 +358,10 @@ public class Actividades extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel JLabel6;
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnVolver;
+    private javax.swing.JComboBox<String> cbMateria;
     private javax.swing.JComboBox<String> cbPeriodos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
