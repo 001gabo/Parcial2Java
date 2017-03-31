@@ -3,6 +3,10 @@ package Principal;
  
 import Actividades.Actividades;
 import Ingresar_Notas.Ingresar_Notas;
+import static Principal.login.iddocente;
+import conexionBD.conexionBD;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 public class Principal extends javax.swing.JFrame {
  
@@ -41,6 +45,11 @@ public class Principal extends javax.swing.JFrame {
         btnModificarNotas.setText("Modificar notas");
 
         btnCerrarNotas.setText("Cerrar notas");
+        btnCerrarNotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarNotasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,6 +100,10 @@ public class Principal extends javax.swing.JFrame {
         this.setVisible(false);
         new Ingresar_Notas().setVisible(true);
     }//GEN-LAST:event_btnIngresarNotasActionPerformed
+
+    private void btnCerrarNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarNotasActionPerformed
+             
+    }//GEN-LAST:event_btnCerrarNotasActionPerformed
 
     /**
      * @param args the command line arguments

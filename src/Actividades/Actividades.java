@@ -185,7 +185,7 @@ public class Actividades extends javax.swing.JFrame {
             rs=st.executeQuery(query);
             while(rs.next()){ 
                 this.cbPeriodos.addItem(rs.getString(2)); 
-                HashMaterias.put(conteoP, rs.getInt(1));
+                HashPeriodos.put(conteoP, rs.getInt(1));
                 conteoP++;
             }
             con.close();
@@ -290,8 +290,8 @@ public class Actividades extends javax.swing.JFrame {
         if(nombre_actividad.equals("")){
             JOptionPane.showMessageDialog(this, "No posee nombre la actividad");
         }else{
-            item_seleccionado_materia=HashMaterias.get(cbMateria.getSelectedIndex());
-            item_seleccionado_periodo=HashMaterias.get(cbPeriodos.getSelectedIndex());
+            item_seleccionado_materia=HashMaterias.get(cbMateria.getSelectedIndex()); 
+            item_seleccionado_periodo=HashPeriodos.get(cbPeriodos.getSelectedIndex());
             
             //Menos que el 100%
             try{   
@@ -308,7 +308,7 @@ public class Actividades extends javax.swing.JFrame {
                     con=conexionBD.getConnection();
                     st=con.createStatement();
                     st.executeUpdate(query);
-                    JOptionPane.showMessageDialog(this,"Se ha creado la actividad de manera exitosa. El porcentaje restante es"+(100-total_porcentaje)+"% ");
+                    JOptionPane.showMessageDialog(this,"Se ha creado la actividad de manera exitosa. El porcentaje restante es "+(100-total_porcentaje-porcentaje)+"% ");
                     con.close();
                     }catch(SQLException ex){ 
                         JOptionPane.showMessageDialog(this,"Ocurrio un error: "+ex); 
