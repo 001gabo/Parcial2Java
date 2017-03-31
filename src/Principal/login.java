@@ -1,15 +1,17 @@
  
 package Principal;
  
+import conexionBD.conexionBD;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane; 
 
 public class login extends javax.swing.JFrame {
-  
+    
     
     public login() {
         initComponents();
@@ -103,12 +105,14 @@ public class login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Existen campos vaciones");
         }else{
           //Metodo para la conexion a la bdd
-            Connection con;
-            PreparedStatement ps;
-            ResultSet rs;   
+            Connection con = null;
+            PreparedStatement ps = null; 
+            ResultSet rs = null; 
+            Statement st;  
 
             try{  
-                con=DriverManager.getConnection("jdbc:mysql://localhost/rs120072_hb140222","root","");
+                
+                con=conexionBD.getConnection();
                 ps = con.prepareStatement("SELECT `user`, `pass`, `Id_Rol` FROM `usuario` WHERE `user`=? AND `pass`=MD5(?) AND id_rol=1");
                 ps.setString(1,usuario);
                 ps.setString(2,pass);

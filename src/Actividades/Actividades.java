@@ -15,6 +15,7 @@ public class Actividades extends javax.swing.JFrame {
     
     public Actividades() {
         initComponents();
+        agregar_items();
     }
  
     @SuppressWarnings("unchecked")
@@ -28,8 +29,8 @@ public class Actividades extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtNombreActividad = new javax.swing.JTextField();
         txtPorcentajeActividad = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        cbPeriodos = new javax.swing.JComboBox<>();
+        btnAceptar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,14 +57,15 @@ public class Actividades extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbPeriodos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
+        cbPeriodos.setSelectedItem(cbPeriodos);
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButton1.setText("Aceptar");
-        jButton1.setToolTipText("");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAceptar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnAceptar.setText("Aceptar");
+        btnAceptar.setToolTipText("");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAceptarActionPerformed(evt);
             }
         });
 
@@ -87,10 +89,10 @@ public class Actividades extends javax.swing.JFrame {
                                 .addComponent(txtNombreActividad)
                                 .addComponent(jLabel3)
                                 .addComponent(txtPorcentajeActividad, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE))
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cbPeriodos, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(186, 186, 186)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(83, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -111,9 +113,9 @@ public class Actividades extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbPeriodos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41))
         );
 
@@ -121,6 +123,12 @@ public class Actividades extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void agregar_items(){
+        cbPeriodos.removeAllItems();
+        cbPeriodos.removeAllItems();
+        cbPeriodos.removeAllItems();
+        cbPeriodos.removeAllItems();
+    }
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         this.dispose();
         new Principal().setVisible(true);
@@ -135,10 +143,12 @@ public class Actividades extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtPorcentajeActividadKeyTyped
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String nombre_actividad;
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        String nombre_actividad,item_seleccionado;
         int porcentaje;
+        
         nombre_actividad = txtNombreActividad.getText();
+        item_seleccionado = cbPeriodos.getSelectedItem().toString();
         
         if(txtPorcentajeActividad.getText().equals("")){
         porcentaje=0;
@@ -174,7 +184,7 @@ public class Actividades extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this,"Ocurrio un error: "+ex); 
             } 
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnAceptarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -212,9 +222,9 @@ public class Actividades extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnVolver;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbPeriodos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
