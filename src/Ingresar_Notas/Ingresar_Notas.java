@@ -5,6 +5,13 @@
  */
 package Ingresar_Notas;
 
+import Principal.Principal;
+import java.sql.ResultSet;
+import conexionBD.conexionBD;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
 /**
  *
  * @author galfo
@@ -15,7 +22,24 @@ public class Ingresar_Notas extends javax.swing.JFrame {
      * Creates new form Notas
      */
     public Ingresar_Notas() {
-        initComponents();
+       initComponents();
+       this.CMBAlumno.removeAllItems();
+       this.CMBMateria.removeAllItems();
+       try{
+        Connection con=conexionBD.getConnection();
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery("SELECT `nombre` FROM `usuario` WHERE id_rol = 2");
+        while(rs.next())
+        {
+            this.CMBAlumno.addItem(rs.getString(1));
+        
+        }
+        
+       }catch(Exception e)
+       {
+           JOptionPane.showMessageDialog(this,e.toString()); 
+       } 
+         
     }
 
     /**
@@ -27,21 +51,121 @@ public class Ingresar_Notas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        BtnVolver = new javax.swing.JButton();
+        CMBAlumno = new javax.swing.JComboBox<>();
+        CMBMateria = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        CMBPeriodo = new javax.swing.JComboBox<>();
+        BTEnviar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextPane1 = new javax.swing.JTextPane();
+        jLabel4 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        BtnVolver.setText("<-Regresar");
+        BtnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnVolverActionPerformed(evt);
+            }
+        });
+
+        CMBAlumno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CMBAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CMBAlumnoActionPerformed(evt);
+            }
+        });
+
+        CMBMateria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel1.setText("Materia:");
+
+        jLabel2.setText("Nombres:");
+
+        jLabel3.setText("Periodo");
+
+        CMBPeriodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CMBPeriodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CMBPeriodoActionPerformed(evt);
+            }
+        });
+
+        BTEnviar.setText("Enviar");
+
+        jScrollPane1.setViewportView(jTextPane1);
+
+        jLabel4.setText("NOTA:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(BtnVolver)
+                            .addComponent(CMBAlumno, 0, 296, Short.MAX_VALUE)
+                            .addComponent(CMBMateria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(CMBPeriodo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(BTEnviar)))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(BtnVolver)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CMBMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addGap(4, 4, 4)
+                .addComponent(CMBPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CMBAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BTEnviar))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
+         this.dispose();
+        new Principal().setVisible(true);
+       
+    }//GEN-LAST:event_BtnVolverActionPerformed
+
+    private void CMBAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CMBAlumnoActionPerformed
+       
+    }//GEN-LAST:event_CMBAlumnoActionPerformed
+
+    private void CMBPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CMBPeriodoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CMBPeriodoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -75,10 +199,22 @@ public class Ingresar_Notas extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Ingresar_Notas().setVisible(true);
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BTEnviar;
+    private javax.swing.JButton BtnVolver;
+    private javax.swing.JComboBox<String> CMBAlumno;
+    private javax.swing.JComboBox<String> CMBMateria;
+    private javax.swing.JComboBox<String> CMBPeriodo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextPane jTextPane1;
     // End of variables declaration//GEN-END:variables
 }

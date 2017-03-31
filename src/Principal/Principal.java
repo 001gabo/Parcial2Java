@@ -2,6 +2,7 @@
 package Principal;
  
 import Actividades.Actividades;
+import Ingresar_Notas.Ingresar_Notas;
 
 public class Principal extends javax.swing.JFrame {
  
@@ -31,6 +32,11 @@ public class Principal extends javax.swing.JFrame {
         });
 
         btnIngresarNotas.setText("Ingresar notas");
+        btnIngresarNotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarNotasActionPerformed(evt);
+            }
+        });
 
         btnModificarNotas.setText("Modificar notas");
 
@@ -80,6 +86,11 @@ public class Principal extends javax.swing.JFrame {
         this.setVisible(false);
         new Actividades().setVisible(true);
     }//GEN-LAST:event_btnCrearActActionPerformed
+
+    private void btnIngresarNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarNotasActionPerformed
+        this.setVisible(false);
+        new Ingresar_Notas().setVisible(true);
+    }//GEN-LAST:event_btnIngresarNotasActionPerformed
 
     /**
      * @param args the command line arguments
